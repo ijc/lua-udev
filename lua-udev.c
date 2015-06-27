@@ -87,7 +87,6 @@ void* get_handle(lua_State *L, int index) {
 }
 
 void* close_handle(lua_State *L, int index) {
-    fprintf(stderr, "close handle\n");fflush(stderr);
     void* handle = get_handle(L, index);
     lua_pushvalue(L, index);
     lua_pushnil(L);
@@ -99,7 +98,6 @@ void* close_handle(lua_State *L, int index) {
 static int handle_error(lua_State *L) {
     lua_pushnil(L);
     lua_pushstring(L, strerror(errno));
-    fprintf(stderr, "err:%s\n", lua_tostring(L, -1));
     lua_pushinteger(L, errno);
     return 3;
 }
@@ -160,24 +158,20 @@ static int list_sysattr2table(lua_State *L, UdevDevice *device) {
 }
 
 static int new_udev(lua_State *L) {
-    fprintf(stderr, "new udev\n");fflush(stderr);
     return new_handle(L, udev_new(), UDEV_MT_NAME);
 }
 
 static int new_udev_device(lua_State *L, UdevDevice *device) {
-    fprintf(stderr, "new udev device\n");fflush(stderr);
     return new_handle(L, device, UDEV_DEVICE_MT_NAME);
 }
 
 static int new_udev_monitor(lua_State *L) {
-    fprintf(stderr, "new udev monitor\n");fflush(stderr);
     return new_handle(L, udev_monitor_new_from_netlink(
         (Udev*)get_handle(L, 1),
         lua_tostring(L, 2)), UDEV_MONITOR_MT_NAME);
 }
 
 static int new_udev_enumerate(lua_State *L) {
-    fprintf(stderr, "new udev enumerate\n");fflush(stderr);
     return new_handle(L, udev_enumerate_new(
         (Udev*)get_handle(L, 1)), UDEV_ENUMERATE_MT_NAME);
 }
