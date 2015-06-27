@@ -336,6 +336,10 @@ static int meth_udev_device_getdevpath(lua_State *L) {
     return 1;
 }
 
+static int meth_udev_device_getdevlinks(lua_State *L) {
+    return list_entry2table(L, udev_device_get_devlinks_list_entry(
+        (UdevDevice*)get_handle(L, 1)));
+}
 
 static int meth_udev_device_getsysnum(lua_State *L) {
     lua_pushstring(L, udev_device_get_sysnum((UdevDevice*)get_handle(L, 1)));
@@ -527,6 +531,7 @@ static luaL_Reg udev_device_methods[] = {
     {"getparent_with_subsystem_devtype", meth_udev_device_getparent_with_subsystem_devtype},
     {"getdevtype", meth_udev_device_getdevtype},
     {"getdevpath", meth_udev_device_getdevpath},
+    {"getdevlinks", meth_udev_device_getdevlinks},
     {"getsyspath", meth_udev_device_getsyspath},
     {"getsysname", meth_udev_device_getsysname},
     {"getsysnum", meth_udev_device_getsysnum},
