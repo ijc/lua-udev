@@ -522,7 +522,7 @@ static luaL_Reg udev_device_funcs[] = {
 //     {"new_from_devnum", new_udev_device_from_devnum},
     {"new_from_subsystem_sysname", new_udev_device_from_subsystem_sysname},
 //     {"new_from_device_id", new_udev_device_from_device_id},
-    {"new_from_from_evironment", new_udev_device_from_environment},
+    {"new_from_from_environment", new_udev_device_from_environment},
     {NULL, NULL}
 };
 
